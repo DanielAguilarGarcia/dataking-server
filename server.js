@@ -55,4 +55,6 @@ const App = function () {
     };
 };
 
-(new App()).init();
+setTimeout(function () {
+    (new App()).init();
+}, 5000);
