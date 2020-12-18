@@ -1,6 +1,4 @@
 ; run installer to create namespace
-do $SYSTEM.OBJ.Load("/app/Installer.cls", "ck")
-set sc = ##class(App.Installer).setup()
 
 zn "IRISAPP"
 do $System.OBJ.LoadDir("/tmp/iris","ck",,1)
