@@ -7,7 +7,7 @@ Property Event As %String;
 
 Property Data As %VarString;
 
-Property CreatedAt As %Date;
+Property CreatedAt As %DateTime;
 
 ClassMethod Insert(type, event, data) As %Status
 {
@@ -17,7 +17,7 @@ ClassMethod Insert(type, event, data) As %Status
     set item.Type = type
     Set item.Event = event
     Set item.Data = data
-    Set item.CreatedAt = $P($H,",")
+    Set item.CreatedAt = $ZDatetime($ZTimestamp, 3, 1, 3)
 
     set tSC = item.%Save()
 
