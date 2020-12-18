@@ -7,7 +7,7 @@ Property Event As %String;
 
 Property Data As %VarString;
 
-Property CreatedAt As %DateTime;
+Property CreatedAt As %TimeStamp;
 
 ClassMethod Insert(type, event, data) As %Status
 {
