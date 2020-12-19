@@ -29,3 +29,20 @@ services:
       - iris
     volumes:
       - .:/app
+
+
+#  dkclient:
+#    env_file:
+#      - ../dataking-client/.env
+#    build:
+#      dockerfile: Dockerfile
+#      context: '../dataking-client'
+#    image: dkclient
+#    restart: always
+#    tty: true
+#    ports:
+#      - "8082:80"
+#    links:
+#      - dkserver
+#    volumes:
+#      - ../dataking-client:/app
