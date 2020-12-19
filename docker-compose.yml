@@ -15,10 +15,16 @@ services:
       - .:/app
 
   dkserver:
+    env_file:
+      - .env
     build:
       dockerfile: Dockerfile-dkserver
       context: '.'
     image: dkserver
+    restart: always
+    tty: true
+    ports:
+      - "8080:80"
     links:
       - iris
     volumes:

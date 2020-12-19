@@ -5,6 +5,8 @@ const DataStorage = require(path.join(__dirname, './data-storage'));
 const pidusage = require('pidusage');
 
 const APP_PORT = process.env.APP_PORT || 3001;
+const APP_HOST = process.env.APP_HOST || '0.0.0.0';
+const APP_STAT_HEARTBEAT = process.env.APP_STAT_HEARTBEAT || 5000;
 
 const App = function () {
     console.log('process: ', process.pid);
@@ -15,22 +17,21 @@ const App = function () {
         "use strict";
 
         let web_socket_server = new ws.Server({
-            port: APP_PORT
+            port: APP_PORT,
+            host: APP_HOST
         });
+
         web_socket_server.on('connection', (ws) => {
             const id = uniqid();
             this.clients[id] = ws;
             console.log('new connection ' + id, ws._socket.remoteAddress);
 
             ws.on('message', (raw_data) => {
-                const data = JSON.parse(raw_data);
-                for (let i = 0; i < data.length; i++) {
-                    let item = JSON.parse(data[i]);
-                    if (!item['api_key'] || !this.checkApiKey(item['api_key'])) {
-                        ws.send('Wrong api key');
-                        continue;
-                    }
-                    data_storage.insert(item);
+                try {
+                    const data = JSON.parse(raw_data);
+                    data_storage.insert(data);
+                } catch (e) {
+                    console.error('parse incoming msg', e);
                 }
             });
 
@@ -51,10 +52,8 @@ const App = function () {
             pidusage(process.pid, function (err, stats) {
                 data_storage.insert({type:'system', event:'stats', data:stats});
             })
-        }, 1000);
+        }, APP_STAT_HEARTBEAT);
     };
 };
 
-setTimeout(function () {
-    (new App()).init();
-}, 5000);
+(new App()).init();
