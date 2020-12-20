@@ -2,9 +2,10 @@
 
 do $System.OBJ.LoadDir("/tmp/iris","ck",,1)
 zpm "install dsw"
-;zpm "install isc-dev"
-;do ##class(dev.code).workdir("/irisdev/app/src")
-;do EnableDeepSee^%SYS.cspServer("/csp/irisapp/")
-;zpm "load /app/ -v"
+zpm "install isc-dev"
+do ##class(dev.code).workdir("/irisapp")
+do EnableDeepSee^%SYS.cspServer("/csp/user/")
+zpm "install iris-cron-task"
+zw ##class(dc.cron.task).Start("* * * * *","set sc=##class(%DeepSee.Utils).%BuildCube(""Items"")",1,.taskId)
 
 halt

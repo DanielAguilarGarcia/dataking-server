@@ -13,6 +13,7 @@ services:
       - "1972:1972"
     volumes:
       - .:/app
+      - /var/data/iris:/irisapp
 
   dkserver:
     env_file:
@@ -31,18 +32,18 @@ services:
       - .:/app
 
 
-#  dkclient:
-#    env_file:
-#      - ../dataking-client/.env
-#    build:
-#      dockerfile: Dockerfile
-#      context: '../dataking-client'
-#    image: dkclient
-#    restart: always
-#    tty: true
-#    ports:
-#      - "8082:80"
-#    links:
-#      - dkserver
-#    volumes:
-#      - ../dataking-client:/app
+  dkclient:
+    env_file:
+      - ../dataking-client/.env
+    build:
+      dockerfile: Dockerfile
+      context: '../dataking-client'
+    image: dkclient
+    restart: always
+    tty: true
+    ports:
+      - "8082:80"
+    links:
+      - dkserver
+    volumes:
+      - ../dataking-client:/app
