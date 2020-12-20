@@ -13,7 +13,7 @@ services:
       - "1972:1972"
     volumes:
       - .:/app
-      - /var/data/iris:/irisapp
+      - /var/data/iris:/irisapp:rw
 
   dkserver:
     env_file:

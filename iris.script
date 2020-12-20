@@ -8,4 +8,6 @@ do EnableDeepSee^%SYS.cspServer("/csp/user/")
 zpm "install iris-cron-task"
 zw ##class(dc.cron.task).Start("* * * * *","set sc=##class(%DeepSee.Utils).%BuildCube(""Items"")",1,.taskId)
 
+zpm "load /tmp/app -v"
+
 halt

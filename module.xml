@@ -18,12 +18,6 @@
             <SourcesRoot>iris</SourcesRoot>
             <Resource Name="dataking.PKG"/>
             <Resource Name="*.DFI" />
-            <Invokes>
-                <Invoke Class="dc.cron.task" Method="Start">
-                    <Arg>"* * * * *"</Arg>
-                    <Arg>set sc=##class(%DeepSee.Utils).%BuildCube("Items")</Arg>
-                </Invoke>
-            </Invokes>
         </Module>
     </Document>
 </Export>
